@@ -17,7 +17,7 @@ public class Club {
     private String clubName;
     private String clubAcronym;
     private Integer creationYear;
-    private String stadeName;
+    private String stadium;
     private Coach coach;
     private List<Player> players;
 }
