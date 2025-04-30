@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+@AllArgsConstructor
+@Getter
+@Setter
 public class PlayerRest {
     private UUID id;
     private String name;
