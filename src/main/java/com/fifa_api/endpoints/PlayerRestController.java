@@ -13,8 +13,8 @@ public class PlayerRestController {
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "20") Integer size,
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) Integer ageMinFilter,
-            @RequestParam(required = false) Integer ageMaxFilter,
+            @RequestParam(required = false) Integer ageMinimum,
+            @RequestParam(required = false) Integer ageMaximum,
             @RequestParam(required = false) String clubName
     ) {
         throw new UnsupportedOperationException("Not implemented yet");
