@@ -18,4 +18,5 @@ public class Player {
     private Post post;
     private String playerNationality;
     private Integer playerAge;
+    private Club club;
 }
