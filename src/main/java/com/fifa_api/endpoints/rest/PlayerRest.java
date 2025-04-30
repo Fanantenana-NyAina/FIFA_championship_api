@@ -1,6 +1,9 @@
 package com.fifa_api.endpoints.rest;
 
 import com.fifa_api.models.Post;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
