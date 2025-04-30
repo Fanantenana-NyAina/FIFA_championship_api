@@ -1,5 +1,7 @@
 package com.fifa_api.dao.mappers;
 
+import com.fifa_api.dao.operations.ClubCRUDOperation;
+import com.fifa_api.models.Club;
 import com.fifa_api.models.Player;
 import com.fifa_api.models.Post;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import java.util.function.Function;
 @Component
 @RequiredArgsConstructor
 public class PlayerMapper implements Function<ResultSet, Player> {
+    private final ClubCRUDOperation clubCRUDOperation;
 
     @SneakyThrows
     @Override
@@ -24,14 +27,18 @@ public class PlayerMapper implements Function<ResultSet, Player> {
         String playerNationality = resultSet.getString("nationalite");
         Integer playerAge = resultSet.getInt("age");
 
+        UUID clubId = UUID.fromString(resultSet.getString("id_club"));
+        Club club = clubCRUDOperation.getById(clubId);
 
-        return new Player(
-                playerId,
-                playerName,
-                playerNumber,
-                playerPosition,
-                playerNationality,
-                playerAge
-        );
+        Player player = new Player();
+        player.setPlayerId(playerId);
+        player.setPlayerName(playerName);
+        player.setPlayerNumber(playerNumber);
+        player.setPost(playerPosition);
+        player.setPlayerNationality(playerNationality);
+        player.setPlayerAge(playerAge);
+        player.setClub(club);
+
+        return player;
     }
 }

@@ -4,6 +4,7 @@ import com.fifa_api.dao.DbConnection;
 import com.fifa_api.dao.mappers.PlayerMapper;
 import com.fifa_api.models.Player;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -24,14 +25,8 @@ public class PlayerCRUDOperation implements CRUD<Player> {
     public List<Player> getAll(Integer page, Integer size) {
         List<Player> players = new ArrayList<>();
 
-        String sql = "select j.id_joueur, j.nom, j.numero, j.poste, j.nationalite, j.age,\n" +
-                "c.id_club, c.nom, c.acronyme, c.annee_creation, c.nom_stade,\n" +
-                "e.id_entraineur ,e.nom, e.nationalite\n" +
-                "from joueur j \n" +
-                "join club c on j.id_club = c.id_club\n" +
-                "join entraineur e on c.id_club = e.id_club\n" +
-                "group by j.id_joueur" +
-                "limit ? offset ?;";
+        String sql = "select id_joueur, nom, numero, poste, nationalite, age, id_club\n" +
+                "from joueur limit ? offset ?";
 
         try(Connection con = datasource.getConnection();
             PreparedStatement ps = con.prepareCall(sql)) {
@@ -53,11 +48,52 @@ public class PlayerCRUDOperation implements CRUD<Player> {
 
     @Override
     public Player getById(UUID id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Player player = null;
+        String sql = "select id_joueur, nom, numero, poste, nationalite, age, id_club " +
+                "from joueur where id_joueur = ?";
+
+        try(Connection con = datasource.getConnection();
+            PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setString(1, id.toString());
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    player =  playerMapper.apply(rs);
+                }
+
+                return player;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public List<Player> saveAll(List<Player> entities) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @SneakyThrows
+    public List<Player> finPlayersByIdClub(UUID idClub) {
+        List<Player> players = new ArrayList<>();
+
+        String sql = "select id_joueur, nom, numero, poste, nationalite, age, id_club\n" +
+                "from joueur where id_club = ?";
+
+        try(Connection con = datasource.getConnection();
+            PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setString(1, idClub.toString());
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Player p =  playerMapper.apply(rs);
+                    players.add(p);
+                }
+
+                return players;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

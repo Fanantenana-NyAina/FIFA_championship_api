@@ -4,12 +4,14 @@ import com.fifa_api.dao.DbConnection;
 import com.fifa_api.dao.mappers.ClubMapper;
 import com.fifa_api.models.Club;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,19 +19,38 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ClubCRUDOperation implements CRUD<Club> {
     private final DbConnection datasource;
-    private ClubMapper clubMapper;
+    private final ClubMapper clubMapper;
 
+    @SneakyThrows
     @Override
     public List<Club> getAll(Integer page, Integer size) {
-        return List.of();
+        List<Club> clubs = new ArrayList<>();
+
+        String sql = "select id_club, nom, acronyme, annee_creation, nom_stade, id_championnat " +
+                "from club limit ? offset ?";
+
+        try(Connection con = datasource.getConnection();
+            PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setInt(1, size);
+            ps.setInt(2, (page-1)*size);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Club cb =  clubMapper.apply(rs);
+                    clubs.add(cb);
+                }
+
+                return clubs;
+            }
+        }
     }
 
     @Override
     public Club getById(UUID id) {
-        String sql = "select c.id_club, c.nom, c.acronyme, c.annee_creation, c.nom_stade, c.id_championnat " +
-                "from club c where c.id_club = ?";
-
         Club club = null;
+
+        String sql = "select id_club, nom, acronyme, annee_creation, nom_stade, id_championnat " +
+                "from club where id_club = ?";
 
         try(Connection con = datasource.getConnection();
             PreparedStatement ps = con.prepareStatement(sql)) {
