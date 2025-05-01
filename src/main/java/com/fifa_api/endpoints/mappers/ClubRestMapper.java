@@ -1,6 +1,5 @@
 package com.fifa_api.endpoints.mappers;
 
-import com.fifa_api.dao.mappers.ClubMapper;
 import com.fifa_api.endpoints.rest.ClubRest;
 import com.fifa_api.models.Club;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +22,18 @@ public class ClubRestMapper implements Function<Club, ClubRest> {
                 club.getStadium(),
                 coachRestMapper.apply(club.getCoach())
         );
+    }
+
+    public ClubRest toClubRest(Club club) {
+        ClubRest clubRest = new ClubRest();
+
+        clubRest.setId(club.getClubId());
+        clubRest.setName(club.getClubName());
+        clubRest.setAcronym(club.getClubAcronym());
+        clubRest.setYearCreation(club.getCreationYear());
+        clubRest.setStadium(club.getStadium());
+        clubRest.setCoach(coachRestMapper.apply(club.getCoach()));
+
+        return clubRest;
     }
 }
