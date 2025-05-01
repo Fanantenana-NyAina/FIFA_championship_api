@@ -17,6 +17,7 @@ public class PlayerRestMapper {
         playerRest.setName(player.getPlayerName());
         playerRest.setNumber(player.getPlayerNumber());
         playerRest.setPosition(player.getPost());
+        playerRest.setNationality(player.getPlayerNationality());
         playerRest.setAge(player.getPlayerAge());
        playerRest.setClub(clubRestMapper.apply(player.getClub()));
 
