@@ -48,6 +48,7 @@ create table entraineur (
 -- table saison
 create table saison (
                         id_saison uuid primary key,
+                        year integer,
                         season_year varchar(20) unique,
                         date_debut date,
                         date_fin date,
