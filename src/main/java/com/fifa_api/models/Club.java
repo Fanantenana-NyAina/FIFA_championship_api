@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -19,5 +18,4 @@ public class Club {
     private Integer creationYear;
     private String stadium;
     private Coach coach;
-    private List<Player> players;
 }
