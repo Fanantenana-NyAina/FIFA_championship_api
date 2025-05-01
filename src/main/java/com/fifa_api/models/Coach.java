@@ -16,4 +16,5 @@ public class Coach {
     private String coachName;
     private String coachNationality;
     private Integer coachAge;
+    private UUID clubId;
 }

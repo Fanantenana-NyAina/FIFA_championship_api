@@ -14,25 +14,32 @@ public class ClubRestMapper implements Function<Club, ClubRest> {
 
     @Override
     public ClubRest apply(Club club) {
+        if (club == null) {
+            return null;
+        }
+
         return new ClubRest(
                 club.getClubId(),
                 club.getClubName(),
                 club.getClubAcronym(),
                 club.getCreationYear(),
                 club.getStadium(),
-                coachRestMapper.apply(club.getCoach())
+                club.getCoach() != null ? coachRestMapper.apply(club.getCoach()) : null
         );
     }
 
     public ClubRest toClubRest(Club club) {
-        ClubRest clubRest = new ClubRest();
+        if (club == null) {
+            return null;
+        }
 
+        ClubRest clubRest = new ClubRest();
         clubRest.setId(club.getClubId());
         clubRest.setName(club.getClubName());
         clubRest.setAcronym(club.getClubAcronym());
         clubRest.setYearCreation(club.getCreationYear());
         clubRest.setStadium(club.getStadium());
-        clubRest.setCoach(coachRestMapper.apply(club.getCoach()));
+        clubRest.setCoach(club.getCoach() != null ? coachRestMapper.apply(club.getCoach()) : null);
 
         return clubRest;
     }

@@ -28,6 +28,10 @@ public class PlayerService {
                 .toList();
     }
 
+    public List<Player> saveAllPlayer(List<Player> players) {
+        return playerCRUDOperation.saveAll(players);
+    }
+
     private boolean matchesName(Player player, String name) {
         if (name == null) {
             return true;

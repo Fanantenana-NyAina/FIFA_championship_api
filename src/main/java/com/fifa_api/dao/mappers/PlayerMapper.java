@@ -28,7 +28,10 @@ public class PlayerMapper implements Function<ResultSet, Player> {
         Integer playerAge = resultSet.getInt("age");
 
         UUID clubId = UUID.fromString(resultSet.getString("id_club"));
-        Club club = clubCRUDOperation.getById(clubId);
+        Club club = null;
+        if(clubId != null) {
+            club = clubCRUDOperation.getById(clubId);
+        }
 
         Player player = new Player();
         player.setPlayerId(playerId);

@@ -2,7 +2,6 @@ package com.fifa_api.services;
 
 import com.fifa_api.dao.operations.ClubCRUDOperation;
 import com.fifa_api.models.Club;
-import com.fifa_api.services.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,7 @@ public class ClubService {
         try {
             return clubCRUDOperation.getAll(page, size);
         } catch (Exception e) {
-            throw new NotFoundException(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 }

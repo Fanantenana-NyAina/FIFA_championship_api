@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import java.util.UUID;
 
@@ -18,5 +19,6 @@ public class Player {
     private Post post;
     private String playerNationality;
     private Integer playerAge;
+    @Nullable
     private Club club;
 }
