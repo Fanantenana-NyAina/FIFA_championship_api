@@ -25,7 +25,7 @@ public class PlayerRestController {
             @RequestParam(required = false) Integer ageMinimum,
             @RequestParam(required = false) Integer ageMaximum,
             @RequestParam(required = false) String clubName,
-            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "20") Integer size
     ) {
         List<Player> players = playerService.getFilteredPlayer(name, ageMinimum, ageMaximum, clubName, page, size);
