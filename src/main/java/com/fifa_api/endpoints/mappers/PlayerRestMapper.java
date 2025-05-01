@@ -18,7 +18,7 @@ public class PlayerRestMapper {
         playerRest.setNumber(player.getPlayerNumber());
         playerRest.setPosition(player.getPost());
         playerRest.setAge(player.getPlayerAge());
-        clubRestMapper.apply(player.getClub());
+       playerRest.setClub(clubRestMapper.apply(player.getClub()));
 
         return playerRest;
     }
