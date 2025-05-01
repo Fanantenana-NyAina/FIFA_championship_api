@@ -66,7 +66,18 @@ public class PlayerCRUDOperation implements CRUD<Player> {
     }
 
     @Override
-    public List<Player> saveAll(List<Player> entities) {
+    public List<Player> saveAll(List<Player> players) {
+        String sql = "insert into joueur (id_joueur, nom, numero, poste, nationalite, age, id_club)\n" +
+                "values (?, ?, ?, ?, ?, ?, ?)\n" +
+                "on conflict (id_joueur) \n" +
+                "do update set\n" +
+                "    nom = excluded.nom,\n" +
+                "    numero = excluded.numero,\n" +
+                "    poste = excluded.poste,\n" +
+                "    nationalite = excluded.nationalite,\n" +
+                "    age = excluded.age\n" +
+                "returning id_joueur, nom, numero, poste, nationalite, age";
+
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

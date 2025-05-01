@@ -1,15 +1,14 @@
 package com.fifa_api.endpoints;
 
 import com.fifa_api.endpoints.mappers.PlayerRestMapper;
+import com.fifa_api.endpoints.rest.CreateOrUpdatePlayer;
 import com.fifa_api.endpoints.rest.PlayerRest;
 import com.fifa_api.models.Player;
 import com.fifa_api.services.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +33,12 @@ public class PlayerRestController {
         ).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(playerRests);
+    }
+
+    @PutMapping("/players")
+    public ResponseEntity<List<PlayerRest>> createOrUpdatePlayer(
+            @RequestBody List<CreateOrUpdatePlayer> createOrUpdatePlayers
+    ) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
