@@ -4,7 +4,7 @@ info:
   description: Football
   version: 1.0.0
 servers:
-  - url: 'http://localhost:8081'
+  - url: 'http://localhost:8080'
 paths:
   /players:
     get:
