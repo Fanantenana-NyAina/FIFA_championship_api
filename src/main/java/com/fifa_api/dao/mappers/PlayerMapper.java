@@ -23,7 +23,7 @@ public class PlayerMapper implements Function<ResultSet, Player> {
         UUID playerId = UUID.fromString(resultSet.getString("id_joueur"));
         String playerName = resultSet.getString("nom");
         Integer playerNumber = resultSet.getInt("numero");
-        Post playerPosition = resultSet.getObject("poste", Post.class);
+        Post playerPosition = Post.valueOf(resultSet.getString("poste"));
         String playerNationality = resultSet.getString("nationalite");
         Integer playerAge = resultSet.getInt("age");
 

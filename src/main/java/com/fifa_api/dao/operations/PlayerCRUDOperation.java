@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -54,7 +51,7 @@ public class PlayerCRUDOperation implements CRUD<Player> {
 
         try(Connection con = datasource.getConnection();
             PreparedStatement ps = con.prepareCall(sql)) {
-            ps.setString(1, id.toString());
+            ps.setObject(1, id, Types.OTHER);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -82,7 +79,7 @@ public class PlayerCRUDOperation implements CRUD<Player> {
 
         try(Connection con = datasource.getConnection();
             PreparedStatement ps = con.prepareCall(sql)) {
-            ps.setString(1, idClub.toString());
+            ps.setObject(1, idClub, Types.OTHER);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {

@@ -21,7 +21,7 @@ public class ClubMapper implements Function<ResultSet, Club> {
     public Club apply(ResultSet resultSet) {
         UUID clubId = UUID.fromString(resultSet.getString("id_club"));
         String clubName = resultSet.getString("nom");
-        String acronym = resultSet.getString("acronym");
+        String acronym = resultSet.getString("acronyme");
         Integer creationYear = resultSet.getInt("annee_creation");
         String stadium = resultSet.getString("nom_stade");
 

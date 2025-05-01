@@ -6,14 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class Championnat {
-    private UUID championnatId;
+    private String championnatId;
     private String championnatName;
     private String pays;
     private List<Club> clubs;
