@@ -44,8 +44,8 @@ insert into joueur (nom, numero, poste, nationalite, age, id_club) values
 
 ---- SAISON:
 -- Insertion d'une saison
-insert into saison (season_year, date_debut, date_fin, status)
-values ('2024-2025', '2024-08-01', '2025-06-01', 'STARTED');
+insert into saison (year, season_year, status)
+values (2025, '2024-2025', 'STARTED');
 
 -- Récupérer l'UUID de la saison
 select id_saison from saison where season_year = '2024-2025';
