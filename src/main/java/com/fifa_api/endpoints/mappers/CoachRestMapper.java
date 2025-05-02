@@ -10,6 +10,9 @@ import java.util.function.Function;
 public class CoachRestMapper implements Function<Coach, CoachRest> {
     @Override
     public CoachRest apply(Coach coach) {
+        if (coach == null) {
+            return null;
+        }
         return new CoachRest(
                 coach.getCoachName(),
                 coach.getCoachNationality()
