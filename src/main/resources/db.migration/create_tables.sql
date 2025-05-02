@@ -40,7 +40,6 @@ create table entraineur (
                             id_entraineur uuid primary key,
                             nom varchar(100),
                             nationalite varchar(50),
-                            age Integer,
                             id_club uuid unique,
                             constraint fk_entraineur_club foreign key (id_club) references club(id_club)
 );

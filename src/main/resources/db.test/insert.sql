@@ -18,12 +18,12 @@ insert into club (nom, acronyme, annee_creation, nom_stade, id_championnat) valu
                                                                                 ('Paris Saint-Germain', 'PSG', 1970, 'Parc des Princes',
                                                                                  (select id_championnat from championnat where nom = 'Ligue 1'));
 
-insert into entraineur (nom, nationalite, age, id_club) values
-                                                            ('Erik ten Hag', 'Pays-Bas', 54, (select id_club from club where nom = 'Manchester United')),
-                                                            ('Carlo Ancelotti', 'Italie', 65, (select id_club from club where nom = 'Real Madrid')),
-                                                            ('Thomas Tuchel', 'Allemagne', 51, (select id_club from club where nom = 'Bayern Munich')),
-                                                            ('Massimiliano Allegri', 'Italie', 57, (select id_club from club where nom = 'Juventus')),
-                                                            ('Luis Enrique', 'Espagne', 54, (select id_club from club where nom = 'Paris Saint-Germain'));
+insert into entraineur (nom, nationalite, id_club) values
+                                                            ('Erik ten Hag', 'Pays-Bas',  (select id_club from club where nom = 'Manchester United')),
+                                                            ('Carlo Ancelotti', 'Italie', (select id_club from club where nom = 'Real Madrid')),
+                                                            ('Thomas Tuchel', 'Allemagne', (select id_club from club where nom = 'Bayern Munich')),
+                                                            ('Massimiliano Allegri', 'Italie',  (select id_club from club where nom = 'Juventus')),
+                                                            ('Luis Enrique', 'Espagne',  (select id_club from club where nom = 'Paris Saint-Germain'));
 
 
 insert into joueur (nom, numero, poste, nationalite, age, id_club) values

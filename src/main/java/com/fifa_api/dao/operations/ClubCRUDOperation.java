@@ -3,6 +3,7 @@ package com.fifa_api.dao.operations;
 import com.fifa_api.dao.DbConnection;
 import com.fifa_api.dao.mappers.ClubMapper;
 import com.fifa_api.models.Club;
+import com.fifa_api.models.Coach;
 import com.fifa_api.services.exceptions.ServerException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -68,52 +71,44 @@ public class ClubCRUDOperation implements CRUD<Club> {
     }
 
     @Override
-    public List<Club> saveAll(List<Club> entities) {
-        List<Club> savedClubs = new ArrayList<>();
+    public List<Club> saveAll(List<Club> clubs) {
+        List<Coach> coaches = clubs.stream()
+                .map(Club::getCoach)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
 
-        String sql = "insert into club (id_club, nom, acronyme, annee_creation, nom_stade, id_championnat)\n" +
-                "values (?, ?, ?, ?, ?, ?)\n" +
-                "on conflict (id_club) \n" +
-                "do update set\n" +
-                "    nom = excluded.nom,\n" +
-                "    acronyme = excluded.acronyme,\n" +
-                "    annee_creation = excluded.annee_creation,\n" +
-                "    nom_stade = excluded.nom_stade,\n" +
-                "    id_championnat = excluded.id_championnat\n" +
-                "returning id_club, nom, acronyme, annee_creation, nom_stade, id_championnat";
+        coachCRUDOperation.saveAll(coaches);
 
-        try (Connection con = datasource.getConnection()) {
-            con.setAutoCommit(false);
+        String sql = "insert into club (id_club, nom, acronyme, annee_creation, nom_stade, id_championnat) " +
+                "values (?, ?, ?, ?, ?, ?) " +
+                "on conflict (id_club) DO update set " +
+                "nom = excluded.nom, " +
+                "acronyme = excluded.acronyme, " +
+                "annee_creation = excluded.annee_creation, " +
+                "nom_stade = excluded.nom_stade, " +
+                "id_championnat = excluded.id_championnat";
 
-            try (PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = datasource.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-                for (Club entityToSave : entities) {
-                    ps.setObject(1, entityToSave.getClubId(), Types.OTHER);
-                    ps.setString(2, entityToSave.getClubName());
-                    ps.setString(3, entityToSave.getClubAcronym());
-                    ps.setInt(4,entityToSave.getCreationYear());
-                    ps.setString(5, entityToSave.getStadium());
-                    ps.setObject(6, entityToSave.getChampionshipId(), Types.OTHER);
-                    ps.addBatch();
-
-                    coachCRUDOperation.saveAll(List.of(entityToSave.getCoach()));
-                }
-                ps.executeBatch();
-
-                try(ResultSet rs = ps.executeQuery()) {
-                    while (rs.next()) {
-                        savedClubs.add(clubMapper.apply(rs));
-                    }
+            for (Club club : clubs) {
+                if (club.getClubId() == null) {
+                    club.setClubId(UUID.randomUUID());
                 }
 
-                con.commit();
-                return savedClubs;
+                UUID coachId = club.getCoach() != null ? club.getCoach().getCoachId() : null;
 
-            } catch (SQLException e) {
-                con.rollback();
-                throw new ServerException(e);
+                ps.setObject(1, club.getClubId(), Types.OTHER);
+                ps.setString(2, club.getClubName());
+                ps.setString(3, club.getClubAcronym());
+                ps.setInt(4, club.getCreationYear());
+                ps.setString(5, club.getStadium());
+                ps.setObject(6, club.getChampionshipId(), Types.OTHER);
+                ps.addBatch();
             }
 
+            ps.executeBatch();
+            return clubs;
         } catch (SQLException e) {
             throw new ServerException(e);
         }
