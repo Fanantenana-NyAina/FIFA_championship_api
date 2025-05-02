@@ -79,14 +79,13 @@ public class ClubCRUDOperation implements CRUD<Club> {
 
         coachCRUDOperation.saveAll(coaches);
 
-        String sql = "insert into club (id_club, nom, acronyme, annee_creation, nom_stade, id_championnat) " +
-                "values (?, ?, ?, ?, ?, ?) " +
+        String sql = "insert into club (id_club, nom, acronyme, annee_creation, nom_stade) " +
+                "values (?, ?, ?, ?, ?) " +
                 "on conflict (id_club) DO update set " +
                 "nom = excluded.nom, " +
                 "acronyme = excluded.acronyme, " +
                 "annee_creation = excluded.annee_creation, " +
-                "nom_stade = excluded.nom_stade, " +
-                "id_championnat = excluded.id_championnat";
+                "nom_stade = excluded.nom_stade";
 
         try (Connection con = datasource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -101,7 +100,6 @@ public class ClubCRUDOperation implements CRUD<Club> {
                 ps.setString(3, club.getClubAcronym());
                 ps.setInt(4, club.getCreationYear());
                 ps.setString(5, club.getStadium());
-                ps.setObject(6, club.getChampionshipId(), Types.OTHER);
                 ps.addBatch();
             }
 

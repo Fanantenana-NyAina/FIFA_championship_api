@@ -25,7 +25,6 @@ public class ClubMapper implements Function<ResultSet, Club> {
         String acronym = resultSet.getString("acronyme");
         Integer creationYear = resultSet.getInt("annee_creation");
         String stadium = resultSet.getString("nom_stade");
-        UUID championShipId = UUID.fromString(resultSet.getString("id_championnat"));
 
         Coach coach = coachCRUDOperation.findByIdClub(clubId);
 
@@ -36,7 +35,6 @@ public class ClubMapper implements Function<ResultSet, Club> {
         club.setCreationYear(creationYear);
         club.setStadium(stadium);
         club.setCoach(coach);
-        club.setChampionshipId(championShipId);
 
         return club;
     }

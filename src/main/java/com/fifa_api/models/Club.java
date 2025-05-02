@@ -18,5 +18,4 @@ public class Club {
     private Integer creationYear;
     private String stadium;
     private Coach coach;
-    private UUID championshipId;
 }
