@@ -19,4 +19,8 @@ public class ClubService {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Club> saveAllClubs(List<Club> clubs) {
+        return clubCRUDOperation.saveAll(clubs);
+    }
 }

@@ -7,9 +7,7 @@ import com.fifa_api.services.ClubService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,26 @@ public class ClubRestController {
         ).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(clubsRest);
+    }
+
+    @PutMapping("/clubs")
+    public ResponseEntity<Object> createOrUpdateClub(
+            @RequestBody List<ClubRest> createOrUpdateClub
+    ) {
+
+        if (createOrUpdateClub == null || createOrUpdateClub.isEmpty()) {
+            return ResponseEntity.badRequest().body("Player list cannot be empty");
+        }
+
+        List<Club> clubs = createOrUpdateClub.stream()
+                .map(clubRestMapper::toClubModel)
+                .toList();
+
+        List<ClubRest> savedClubs = clubService.saveAllClubs(clubs).stream()
+                .map(clubRestMapper::toClubRest)
+                .toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(savedClubs);
+
     }
 }

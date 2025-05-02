@@ -5,7 +5,6 @@ import com.fifa_api.endpoints.rest.CreateOrUpdatePlayer;
 import com.fifa_api.endpoints.rest.PlayerRest;
 import com.fifa_api.models.Player;
 import com.fifa_api.services.PlayerService;
-import com.fifa_api.services.exceptions.ServerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

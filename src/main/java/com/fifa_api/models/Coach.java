@@ -1,16 +1,14 @@
 package com.fifa_api.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
+@Getter
+@Setter
 public class Coach {
     private UUID coachId;
     private String coachName;
