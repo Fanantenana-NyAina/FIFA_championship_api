@@ -45,6 +45,13 @@ create table entraineur (
                             constraint fk_entraineur_club foreign key (id_club) references club(id_club)
 );
 
+ALTER TABLE entraineur
+    ADD CONSTRAINT uk_entraineur_club UNIQUE (id_entraineur, id_club);
+
+ALTER TABLE joueur
+    ADD CONSTRAINT uk_joueur_club UNIQUE (id_joueur, id_club);
+
+
 -- table saison
 create table saison (
                         id_saison uuid primary key,
