@@ -96,8 +96,6 @@ public class ClubCRUDOperation implements CRUD<Club> {
                     club.setClubId(UUID.randomUUID());
                 }
 
-                UUID coachId = club.getCoach() != null ? club.getCoach().getCoachId() : null;
-
                 ps.setObject(1, club.getClubId(), Types.OTHER);
                 ps.setString(2, club.getClubName());
                 ps.setString(3, club.getClubAcronym());
