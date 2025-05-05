@@ -3,12 +3,6 @@ create type poste as enum ('ATT', 'ML', 'DF', 'GK');
 create type status as enum ('NOT_STARTED', 'STARTED', 'FINISHED');
 create type duration_unit as enum ('SECOND', 'MINUTE', 'HOUR');
 
--- table championnat
-create table championnat (
-                             id_championnat uuid primary key,
-                             nom varchar(50) unique,
-                             pays varchar(50)
-);
 
 -- table club
 create table club (
