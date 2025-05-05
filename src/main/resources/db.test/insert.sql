@@ -6,17 +6,12 @@ insert into championnat (nom, pays) values
                                         ('Ligue 1', 'France');
 
 
-insert into club (nom, acronyme, annee_creation, nom_stade, id_championnat) values
-                                                                                ('Manchester United', 'MUFC', 1878, 'Old Trafford',
-                                                                                 (select id_championnat from championnat where nom = 'Premier League')),
-                                                                                ('Real Madrid', 'RMA', 1902, 'Santiago Bernabéu',
-                                                                                 (select id_championnat from championnat where nom = 'La Liga')),
-                                                                                ('Bayern Munich', 'FCB', 1900, 'Allianz Arena',
-                                                                                 (select id_championnat from championnat where nom = 'Bundesliga')),
-                                                                                ('Juventus', 'JUV', 1897, 'Allianz Stadium',
-                                                                                 (select id_championnat from championnat where nom = 'Serie A')),
-                                                                                ('Paris Saint-Germain', 'PSG', 1970, 'Parc des Princes',
-                                                                                 (select id_championnat from championnat where nom = 'Ligue 1'));
+insert into club (nom, acronyme, annee_creation, nom_stade) values
+                                                                                ('Manchester United', 'MUFC', 1878, 'Old Trafford'),
+                                                                                ('Real Madrid', 'RMA', 1902, 'Santiago Bernabéu'),
+                                                                                ('Bayern Munich', 'FCB', 1900, 'Allianz Arena'),
+                                                                                ('Juventus', 'JUV', 1897, 'Allianz Stadium'),
+                                                                                ('Paris Saint-Germain', 'PSG', 1970, 'Parc des Princes');
 
 insert into entraineur (nom, nationalite, id_club) values
                                                             ('Erik ten Hag', 'Pays-Bas',  (select id_club from club where nom = 'Manchester United')),
@@ -55,14 +50,13 @@ select id_saison from saison where season_year = '2024-2025';
 -- Insertion d'un match entre PSG et Manchester United
 insert into match (
     date_heure, stade, id_club_domicile, id_club_exterieur,
-    score_domicile, score_exterieur, id_saison, id_championnat, status
+    score_domicile, score_exterieur, id_saison, status
 ) values (
              '2024-09-15 20:45:00', 'Parc des Princes',
              (select id_club from club where nom = 'Paris Saint-Germain'),
              (select id_club from club where nom = 'Manchester United'),
              2, 1,
              (select id_saison from saison where season_year = '2024-2025'),
-             (select id_championnat from championnat where nom = 'Ligue 1'),
              'FINISHED'
          );
 

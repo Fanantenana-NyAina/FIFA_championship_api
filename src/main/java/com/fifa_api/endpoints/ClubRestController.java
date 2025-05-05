@@ -24,7 +24,7 @@ public class ClubRestController {
     ) {
         List<Club> clubs = clubService.getAllClubs(page, size);
         List<ClubRest> clubsRest = clubs.stream().map(
-                clubRestMapper::toClubRest
+                clubRestMapper
         ).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(clubsRest);
@@ -44,7 +44,7 @@ public class ClubRestController {
                 .toList();
 
         List<ClubRest> savedClubs = clubService.saveAllClubs(clubs).stream()
-                .map(clubRestMapper::toClubRest)
+                .map(clubRestMapper)
                 .toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(savedClubs);

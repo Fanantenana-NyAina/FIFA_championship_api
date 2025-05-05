@@ -26,7 +26,7 @@ public class SeasonRestController {
     ) {
         List<Season> seasons = seasonService.getAllSeasons(page, size);
         List<SeasonRest> seasonRests = seasons.stream().map(
-                seasonRestMapper::toSeasonRest
+                seasonRestMapper
         ).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(seasonRests);

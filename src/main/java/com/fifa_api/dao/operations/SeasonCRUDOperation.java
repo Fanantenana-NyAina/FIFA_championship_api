@@ -2,7 +2,6 @@ package com.fifa_api.dao.operations;
 
 import com.fifa_api.dao.DbConnection;
 import com.fifa_api.dao.mappers.SeasonMapper;
-import com.fifa_api.models.Club;
 import com.fifa_api.models.Season;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;

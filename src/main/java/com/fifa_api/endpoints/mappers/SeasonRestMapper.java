@@ -17,15 +17,4 @@ public class SeasonRestMapper implements Function<Season, SeasonRest> {
                 season.getSeasonStatus()
         );
     }
-
-    public SeasonRest toSeasonRest(Season season) {
-        SeasonRest seasonRest = new SeasonRest();
-
-        seasonRest.setYear(season.getSeasonYear());
-        seasonRest.setAlias(season.getSeasonAlias());
-        seasonRest.setId(season.getSeasonId());
-        seasonRest.setStatus(season.getSeasonStatus());
-
-        return seasonRest;
-    }
 }

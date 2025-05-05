@@ -31,22 +31,6 @@ public class ClubRestMapper implements Function<Club, ClubRest> {
         );
     }
 
-    public ClubRest toClubRest(Club club) {
-        if (club == null) {
-            return null;
-        }
-
-        ClubRest clubRest = new ClubRest();
-        clubRest.setId(club.getClubId());
-        clubRest.setName(club.getClubName());
-        clubRest.setAcronym(club.getClubAcronym());
-        clubRest.setYearCreation(club.getCreationYear());
-        clubRest.setStadium(club.getStadium());
-        clubRest.setCoach(coachRestMapper.apply(club.getCoach()));
-
-        return clubRest;
-    }
-
     public Club toClubModel(ClubRest clubRest) {
         if (clubRest == null) {
             return null;

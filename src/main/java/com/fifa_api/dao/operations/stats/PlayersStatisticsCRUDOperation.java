@@ -58,5 +58,7 @@ public class PlayersStatisticsCRUDOperation implements CRUD<PlayerStatistics> {
         } catch (SQLException e) {
             throw new ServerException(e);
         }
+
+        return null;
     }
 }
