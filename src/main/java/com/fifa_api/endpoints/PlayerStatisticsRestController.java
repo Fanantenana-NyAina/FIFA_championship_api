@@ -31,6 +31,6 @@ public class PlayerStatisticsRestController {
                 playerStatisticRestMapper
         ).toList();
 
-        return ResponseEntity.ok(playerStatisticsRest);
+        return ResponseEntity.status(HttpStatus.OK).body(playerStatisticsRest);
     }
 }
