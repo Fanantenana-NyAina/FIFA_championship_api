@@ -10,9 +10,7 @@ create table club (
                       nom varchar(100) unique,
                       acronyme varchar(10),
                       annee_creation integer,
-                      nom_stade varchar(100),
-                      id_championnat uuid,
-                      constraint fk_club_championnat foreign key (id_championnat) references championnat(id_championnat)
+                      nom_stade varchar(100)
 );
 
 -- table joueur
@@ -63,12 +61,10 @@ create table match (
                        score_domicile integer not null default 0 check ( score_domicile >= 0 ),
                        score_exterieur integer not null default 0 check ( score_exterieur >= 0 ),
                        id_saison uuid,
-                       id_championnat uuid,
                        status status,
                        constraint fk_match_club_domicile foreign key (id_club_domicile) references club(id_club),
                        constraint fk_match_club_exterieur foreign key (id_club_exterieur) references club(id_club),
                        constraint fk_match_saison foreign key (id_saison) references saison(id_saison),
-                       constraint fk_match_championnat foreign key (id_championnat) references championnat(id_championnat),
                        constraint check_clubs_differents check (id_club_domicile is distinct from id_club_exterieur)
 );
 
