@@ -28,7 +28,7 @@ public class ClubCRUDOperation implements CRUD<Club> {
     public List<Club> getAll(Integer page, Integer size) {
         List<Club> clubs = new ArrayList<>();
 
-        String sql = "select id_club, nom, acronyme, annee_creation, nom_stade, id_championnat" +
+        String sql = "select id_club, nom, acronyme, annee_creation, nom_stade" +
                 " from club limit ? offset ?";
 
         try(Connection con = datasource.getConnection();
@@ -51,7 +51,7 @@ public class ClubCRUDOperation implements CRUD<Club> {
     public Club getById(UUID id) {
         Club club = null;
 
-        String sql = "select id_club, nom, acronyme, annee_creation, nom_stade, id_championnat " +
+        String sql = "select id_club, nom, acronyme, annee_creation, nom_stade " +
                 "from club where id_club = ?";
 
         try(Connection con = datasource.getConnection();

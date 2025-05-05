@@ -50,6 +50,10 @@ public class CoachCRUDOperation implements CRUD<Coach> {
         Coach coach = null;
         String sql = "select id_entraineur, nom, nationalite from entraineur where id_entraineur = ?";
 
+        return getCoach(idClub, coach, sql);
+    }
+
+    private Coach getCoach(UUID idClub, Coach coach, String sql) throws SQLException {
         try(Connection con = datasource.getConnection();
             PreparedStatement ps = con.prepareCall(sql)) {
             ps.setObject(1, idClub, Types.OTHER);
@@ -100,17 +104,6 @@ public class CoachCRUDOperation implements CRUD<Coach> {
         Coach coach = null;
         String sql = "select id_entraineur, nom, nationalite, id_club from entraineur where id_club = ?";
 
-        try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
-            ps.setObject(1, idClub, Types.OTHER);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    coach =  coachMapper.apply(rs);
-                }
-
-                return coach;
-            }
-        }
+        return getCoach(idClub, coach, sql);
     }
 }

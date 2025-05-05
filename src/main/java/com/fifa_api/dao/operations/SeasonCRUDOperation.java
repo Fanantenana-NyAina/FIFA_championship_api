@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -45,9 +46,27 @@ public class SeasonCRUDOperation implements CRUD<Season> {
         }
     }
 
+    @SneakyThrows
     @Override
     public Season getById(UUID id) {
-        return null;
+        Season season = null;
+
+        String sql = "select id_saison, year, season_year, status " +
+                "from saison where id_saison = ?";
+
+        try(Connection con = datasource.getConnection();
+            PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setObject(1, id, Types.OTHER);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Season s =  seasonMapper.apply(rs);
+                    season = s;
+                }
+
+                return season;
+            }
+        }
     }
 
     @Override

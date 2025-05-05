@@ -68,15 +68,15 @@ public class PlayerCRUDOperation implements CRUD<Player> {
 
     @Override
     public List<Player> saveAll(List<Player> players) {
-        String sql = "INSERT INTO joueur (id_joueur, nom, numero, poste, nationalite, age) " +
-                "VALUES (?, ?, ?, ?, ?, ?) " +
-                "ON CONFLICT (id_joueur) DO UPDATE SET " +
-                "nom = EXCLUDED.nom, " +
-                "numero = EXCLUDED.numero, " +
-                "poste = EXCLUDED.poste, " +
-                "nationalite = EXCLUDED.nationalite, " +
-                "age = EXCLUDED.age " +
-                "RETURNING id_joueur";
+        String sql = "insert into joueur (id_joueur, nom, numero, poste, nationalite, age) " +
+                "values (?, ?, ?, ?, ?, ?) " +
+                "on CONFLICT (id_joueur) do update set " +
+                "nom = excluded.nom, " +
+                "numero = excluded.numero, " +
+                "poste = excluded.poste, " +
+                "nationalite = excluded.nationalite, " +
+                "age = excluded.age " +
+                "returning id_joueur";
 
         try (Connection con = datasource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
