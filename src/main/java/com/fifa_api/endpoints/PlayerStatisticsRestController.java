@@ -17,8 +17,8 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 public class PlayerStatisticsRestController {
-    public final PlayerStatisticsService playerStatisticsService;
-    public final PlayerStatisticRestMapper playerStatisticRestMapper;
+    private final PlayerStatisticsService playerStatisticsService;
+    private final PlayerStatisticRestMapper playerStatisticRestMapper;
 
     @GetMapping("players/{id}/statistics/{seasonYear}")
     public ResponseEntity<Object> getPlayerStatistics(
