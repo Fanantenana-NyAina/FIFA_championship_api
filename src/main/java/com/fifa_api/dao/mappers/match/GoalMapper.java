@@ -33,8 +33,8 @@ public class GoalMapper implements Function<ResultSet, Goal> {
         UUID clubId = UUID.fromString(resultSet.getString("id_club"));
         goal.setClub(clubCRUDOperation.getById(clubId));
 
-        goal.setMinutes(resultSet.getInt("minutes"));
-        goal.setIsOwnGoal(resultSet.getBoolean("is_own_goal"));
+        goal.setMinutes(resultSet.getInt("minute"));
+        goal.setIsOwnGoal(resultSet.getBoolean("contre_son_camp"));
 
         return goal;
     }
