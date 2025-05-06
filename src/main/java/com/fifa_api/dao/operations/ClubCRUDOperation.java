@@ -72,16 +72,25 @@ public class ClubCRUDOperation implements CRUD<Club> {
 
     @Override
     public List<Club> saveAll(List<Club> clubs) {
+        for (Club club : clubs) {
+            if (club.getClubId() == null) {
+                return null;
+            }
+
+            if (club.getCoach() != null) {
+                club.getCoach().setClubId(club.getClubId());
+            }
+        }
+
         List<Coach> coaches = clubs.stream()
                 .map(Club::getCoach)
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-
+                .toList();
         coachCRUDOperation.saveAll(coaches);
 
         String sql = "insert into club (id_club, nom, acronyme, annee_creation, nom_stade) " +
                 "values (?, ?, ?, ?, ?) " +
-                "on conflict (id_club) DO update set " +
+                "on conflict (id_club) do update set " +
                 "nom = excluded.nom, " +
                 "acronyme = excluded.acronyme, " +
                 "annee_creation = excluded.annee_creation, " +
@@ -91,10 +100,6 @@ public class ClubCRUDOperation implements CRUD<Club> {
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             for (Club club : clubs) {
-                if (club.getClubId() == null) {
-                    club.setClubId(UUID.randomUUID());
-                }
-
                 ps.setObject(1, club.getClubId(), Types.OTHER);
                 ps.setString(2, club.getClubName());
                 ps.setString(3, club.getClubAcronym());
