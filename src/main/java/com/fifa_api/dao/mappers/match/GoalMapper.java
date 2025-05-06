@@ -2,7 +2,6 @@ package com.fifa_api.dao.mappers.match;
 
 import com.fifa_api.dao.operations.ClubCRUDOperation;
 import com.fifa_api.dao.operations.PlayerCRUDOperation;
-import com.fifa_api.dao.operations.match.MatchCRUDOperation;
 import com.fifa_api.models.match.Goal;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
