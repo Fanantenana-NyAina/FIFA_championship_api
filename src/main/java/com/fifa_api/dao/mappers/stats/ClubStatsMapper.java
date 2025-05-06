@@ -34,7 +34,7 @@ public class ClubStatsMapper implements Function<ResultSet, ClubStatistics> {
         clubStatistics.setRankingPoints(rs.getInt("points"));
         clubStatistics.setScoredGoals(rs.getInt("buts_marques"));
         clubStatistics.setConcededGoals(rs.getInt("buts_encaisses"));
-        clubStatistics.setDifferenceGoals(rs.getInt("difference_buts"));
+        clubStatistics.setDifferenceGoals(Math.abs(rs.getInt("difference_buts")));
         clubStatistics.setCleanSheetNumber(rs.getInt("clean_sheets"));
 
         return clubStatistics;
