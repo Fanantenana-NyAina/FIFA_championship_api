@@ -45,7 +45,8 @@ public class MatchMapper implements Function<ResultSet, Matches> {
         UUID seasonID = UUID.fromString(rs.getString("id_saison"));
         match.setSeason(seasonCRUDOperation.getById(seasonID));
 
-        match.setStatus(rs.getObject("status", Status.class));
+        Status status = Status.valueOf(rs.getString("status"));
+        match.setStatus(status);
         match.setGoalsInMatch(goalCRUDOperation.getGoalsInMatch(idMatch));
 
         return match;
