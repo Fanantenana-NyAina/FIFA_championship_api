@@ -30,7 +30,7 @@ public class SeasonCRUDOperation implements CRUD<Season> {
                 "from saison limit ? offset ?";
 
         try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, size);
             ps.setInt(2, (page-1)*size);
 
@@ -54,7 +54,7 @@ public class SeasonCRUDOperation implements CRUD<Season> {
                 "from saison where id_saison = ?";
 
         try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, id, Types.OTHER);
 
             try (ResultSet rs = ps.executeQuery()) {

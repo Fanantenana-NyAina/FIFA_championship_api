@@ -27,7 +27,7 @@ public class PlayerCRUDOperation implements CRUD<Player> {
                 "from joueur limit ? offset ?";
 
         try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, size);
             ps.setInt(2, (page-1)*size);
 
@@ -51,7 +51,7 @@ public class PlayerCRUDOperation implements CRUD<Player> {
                 "from joueur where id_joueur = ?";
 
         try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, id, Types.OTHER);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -116,7 +116,7 @@ public class PlayerCRUDOperation implements CRUD<Player> {
                 "from joueur where id_club = ?";
 
         try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, idClub, Types.OTHER);
 
             try (ResultSet rs = ps.executeQuery()) {

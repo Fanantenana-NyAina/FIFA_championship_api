@@ -32,7 +32,7 @@ public class ClubCRUDOperation implements CRUD<Club> {
                 " from club limit ? offset ?";
 
         try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, size);
             ps.setInt(2, (page-1)*size);
 

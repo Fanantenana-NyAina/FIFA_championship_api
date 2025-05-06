@@ -27,7 +27,7 @@ public class CoachCRUDOperation implements CRUD<Coach> {
                 "from entraineur limit ? offset ?";
 
         try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, size);
             ps.setInt(2, (page-1)*size);
 
@@ -55,7 +55,7 @@ public class CoachCRUDOperation implements CRUD<Coach> {
 
     private Coach getCoach(UUID idClub, Coach coach, String sql) throws SQLException {
         try(Connection con = datasource.getConnection();
-            PreparedStatement ps = con.prepareCall(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, idClub, Types.OTHER);
 
             try (ResultSet rs = ps.executeQuery()) {
